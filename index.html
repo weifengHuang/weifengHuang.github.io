@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://weifenghuang.github.io">
-  <title>Hello World | Breeze的小站</title>
+  <title>Breeze的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="随笔">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://weifenghuang.github.io/2017/11/02/hello-world/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Breeze的小站">
+<meta property="og:url" content="https://weifenghuang.github.io/index.html">
 <meta property="og:site_name" content="Breeze的小站">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-11-30T14:58:31.009Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Breeze的小站">
   
     <link rel="alternative" href="/atom.xml" title="Breeze的小站" type="application/atom+xml">
   
@@ -160,14 +155,151 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-ci" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Hello World
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/30/ci/">手把手教你搭建 web 持续集成系统</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/30/ci/" class="archive-article-date">
+  	<time datetime="2017-11-30T15:14:53.168Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1、持续集成-CI-介绍-gitlab-runne-搭建"><a href="#1、持续集成-CI-介绍-gitlab-runne-搭建" class="headerlink" title="1、持续集成 CI 介绍 + gitlab-runne 搭建"></a>1、持续集成 CI 介绍 + gitlab-runne 搭建</h1><h2 id="1-1-持续集成-CI-介绍"><a href="#1-1-持续集成-CI-介绍" class="headerlink" title="1-1 持续集成 CI 介绍"></a>1-1 持续集成 CI 介绍</h2><h3 id="1-1-1-定义"><a href="#1-1-1-定义" class="headerlink" title="1-1-1 定义:"></a>1-1-1 定义:</h3><p>自动测试+自动部署</p>
+<h3 id="1-1-2-为什么需要持续集成"><a href="#1-1-2-为什么需要持续集成" class="headerlink" title="1-1-2 为什么需要持续集成###:"></a>1-1-2 为什么需要持续集成###:</h3><ol>
+<li>增加代码可靠性: 每次提交代码到仓库，都会完整跑一遍测试，测试通过才合并</li>
+<li>自动化部署，减少人工处理复杂度</li>
+</ol>
+<h3 id="1-1-3-如何使CI工作"><a href="#1-1-3-如何使CI工作" class="headerlink" title="1-1-3 如何使CI工作"></a>1-1-3 如何使CI工作</h3><p>在gitlab上面部署持续集成，需要以下，</p>
+<ol>
+<li>需要在仓库根目录创建一个名为 .gitlab-ci.yml 的文件</li>
+<li>为该项目配置一个 gitlab-runner<br><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-16/1672556.jpg" alt=""></li>
+</ol>
+<h2 id="1-2-gitlab-runner-搭建"><a href="#1-2-gitlab-runner-搭建" class="headerlink" title="1-2 gitlab-runner 搭建"></a>1-2 gitlab-runner 搭建</h2><h3 id="1-2-1-gitlab-runner-安装"><a href="#1-2-1-gitlab-runner-安装" class="headerlink" title="1-2-1 gitlab-runner 安装"></a>1-2-1 gitlab-runner 安装</h3><p>gitlab-runner是用go语言编写的一个开源程序，主要是用来读取.gitlab-ci.yml的文件，并根据对应的指令来执行脚本文件，执行结束以后会把对应的结果返回到gitlab上。<br>安装指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># For Debian/Ubuntu/Mint</div><div class="line">curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash</div><div class="line"># For RHEL/CentOS/Fedora</div><div class="line">curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash</div><div class="line"># For Debian/Ubuntu/Mint</div><div class="line">sudo apt-get install gitlab-runner</div><div class="line"># For RHEL/CentOS/Fedora</div><div class="line">sudo yum install gitlab-runner</div></pre></td></tr></table></figure></p>
+<p><strong>安装文档： <a href="https://docs.gitlab.com/runner/install/linux-repository.html" target="_blank" rel="external">https://docs.gitlab.com/runner/install/linux-repository.html</a></strong></p>
+<h3 id="1-2-2-runner-注册"><a href="#1-2-2-runner-注册" class="headerlink" title="1-2-2 runner 注册"></a>1-2-2 runner 注册</h3><p><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-30/34970680.jpg" alt=""><br><strong>参考官方文档: <a href="http://docs.gitlab.com/runner/register/" target="_blank" rel="external">http://docs.gitlab.com/runner/register/</a></strong></p>
+<h4 id="1-注册流程"><a href="#1-注册流程" class="headerlink" title="1. 注册流程"></a><strong>1. 注册流程</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gitlab-runner register</div></pre></td></tr></table></figure>
+<p>填写对应的 url 以及 token 及对应的 exectour,及一些其他配置描述，详细看官方文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com )</div><div class="line">https://gitlab.com</div><div class="line">Please enter the gitlab-ci token for this runner</div><div class="line">xxx</div><div class="line">Please enter the executor: ssh, docker+machine, docker-ssh+machine, kubernetes, docker, parallels, virtualbox, docker-ssh, shell:</div><div class="line">docker</div><div class="line"></div><div class="line">使用本地镜像，要在config.toml 增加pull_policy</div><div class="line">vim /etc/gitlab-runner/config.toml</div><div class="line">[[runners]]</div><div class="line">  name = &quot;&quot;</div><div class="line">  url = &quot;&quot;</div><div class="line">  token = &quot;&quot;</div><div class="line">  executor = &quot;docker&quot;</div><div class="line">  [runners.docker]</div><div class="line">    tls_verify = false</div><div class="line">    image = &quot;nb-node&quot;</div><div class="line">    privileged = false</div><div class="line">    disable_cache = false</div><div class="line">    volumes = [&quot;/cache&quot;]</div><div class="line">+   pull_policy = &quot;if-not-present&quot;</div><div class="line">    [runners.cache]</div></pre></td></tr></table></figure></p>
+<h4 id="2、executor-分类，以及为何选用-docker-环境"><a href="#2、executor-分类，以及为何选用-docker-环境" class="headerlink" title="2、executor 分类，以及为何选用 docker 环境"></a><strong>2、executor 分类，以及为何选用 docker 环境</strong></h4><p>官方的执行器有以下几种:</p>
+<ul>
+<li>Shell （简单易用）</li>
+<li>Docker （能拉取各种镜像，每次编译环境干净）</li>
+<li>ssh （连接到远程服务器，无法保证每次编译环境都是干净）</li>
+<li>VirtualBox ( windows 下安装）</li>
+<li>Docker Machine(auto-scaling) （docker 集群）</li>
+<li>Kubernetes (Kubernetes 是 google 开源的容器集群管理系统)</li>
+</ul>
+<p><strong>选用 docker 理由如下</strong></p>
+<ol>
+<li>直接拉取 node 镜像，也可以本地构建好所需要的镜像，直接使用本地镜像，速度快。</li>
+<li>每次的编译环境都是干净，避免污染, 保证在新机器能够跑通</li>
+<li>需要存储特定的文件，比如 chromemium</li>
+</ol>
+<h1 id="2、gitlab-ci-yml介绍"><a href="#2、gitlab-ci-yml介绍" class="headerlink" title="2、gitlab-ci.yml介绍"></a>2、gitlab-ci.yml介绍</h1><p>##2-1 总体介绍<br>.gitlab-ci.yml 是一个脚本文件，用来定义 runner 的执行脚本。需要放在项目的根目录</p>
+<h2 id="2-2-脚本书写"><a href="#2-2-脚本书写" class="headerlink" title="2-2 脚本书写"></a>2-2 脚本书写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div></pre></td><td class="code"><pre><div class="line">image: hwf/ci</div><div class="line">cache:</div><div class="line">  untracked: true</div><div class="line">  key: &quot;$CI_BUILD_REF_NAME&quot;</div><div class="line">  paths:</div><div class="line">    - ./server/node_modules</div><div class="line">    - ./web/node_modules</div><div class="line">stages:</div><div class="line">  - serverTest</div><div class="line">  - webTest</div><div class="line">  - webBuild</div><div class="line">  - webDeploy</div><div class="line">  - serverDeploy</div><div class="line">before_script:</div><div class="line">  # Install ssh-agent if not already installed, it is required by Docker.</div><div class="line">  # (change apt-get to yum if you use a CentOS-based image)</div><div class="line">  - &apos;which ssh-agent || ( apt-get update -y &amp;&amp; apt-get install openssh-client -y )&apos;</div><div class="line">  # Run ssh-agent (inside the build environment)</div><div class="line">  - eval $(ssh-agent -s)</div><div class="line">  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store</div><div class="line">  - ssh-add &lt;(echo &quot;$SSH_PRIVATE_KEY&quot;)</div><div class="line">  - echo &quot;$SSH_PRIVATE_KEY&quot;</div><div class="line">  - ssh-add &lt;(echo &quot;$SSH_PRODUCTION_KEY&quot;)</div><div class="line">  # For Docker builds disable host key checking. Be aware that by adding that</div><div class="line">  # you are suspectible to man-in-the-middle attacks.</div><div class="line">  # WARNING: Use this only with the Docker executor, if you use it with shell</div><div class="line">  # you will overwrite your user&apos;s SSH config.</div><div class="line">  - mkdir -p ~/.ssh</div><div class="line">  - echo -e &quot;Host *\n\tStrictHostKeyChecking no\n\n&quot; &gt; ~/.ssh/config</div><div class="line">serverTest:</div><div class="line">  image: hwf/ci</div><div class="line">  stage: serverTest</div><div class="line">  script:</div><div class="line">    - cd server</div><div class="line">    - cnpm install</div><div class="line">    # 后端单元测试</div><div class="line">    - npm run unit</div><div class="line">    - npm run e2e</div><div class="line">webTest:</div><div class="line">  stage: webTest</div><div class="line">  script:</div><div class="line">    - redis-server --daemonize yes</div><div class="line">    - cd server</div><div class="line">    - npm run start-ci</div><div class="line">    - cd ../web</div><div class="line">    - cnpm install --ignore-scripts</div><div class="line">    - cnpm install node-sass</div><div class="line">    - cnpm rebuild node-sass</div><div class="line">    - npm run test</div><div class="line">webDevBuild:</div><div class="line">  stage: webBuild</div><div class="line">  artifacts:</div><div class="line">    paths:</div><div class="line">      - ./web/dist</div><div class="line">  only:</div><div class="line">    - develop@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    - cd ./web</div><div class="line">    # build在test环境下，master下面用npm run build</div><div class="line">    - npm run build-test</div><div class="line">webMasterBuild:</div><div class="line">  stage: webBuild</div><div class="line">  artifacts:</div><div class="line">    paths:</div><div class="line">      - ./web/dist</div><div class="line">  only:</div><div class="line">    - master@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    - cd ./web</div><div class="line">    # build在test环境下，master下面用npm run build</div><div class="line">    - npm run build</div><div class="line">webDevdeploy:</div><div class="line">  stage: webDeploy</div><div class="line">  environment:</div><div class="line">    name: development</div><div class="line">  only:</div><div class="line">    - develop@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    # dist后面加/ 则不创建该文件</div><div class="line">    - rsync -avz --delete ./web/dist/ root@1.1.1.1:/var/www/kuaikf</div><div class="line">webProdeploy:</div><div class="line">  stage: webDeploy</div><div class="line">  environment:</div><div class="line">    name: production</div><div class="line">  only:</div><div class="line">    - master@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    # dist后面加/ 则不创建该文件</div><div class="line">    - rsync -avz --delete ./web/dist/ root@1.1.1.2:/root/tmpStorage/</div><div class="line">serverDevDeploy:</div><div class="line">  stage: serverDeploy</div><div class="line">  environment:</div><div class="line">    name: development</div><div class="line">  only:</div><div class="line">    - develop@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    # dist后面加/ 则不创建该文件</div><div class="line">    - rsync -avz --delete ./server/ root@1.1.1.1:/root/kuaikf/server</div><div class="line">    - ssh root@192.168.1.71 &apos;pm2 restart server&apos;</div><div class="line">serverProDeplpy:</div><div class="line">  stage: serverDeploy</div><div class="line">  environment:</div><div class="line">    name: production</div><div class="line">    url: https://apilab.gitlab.org</div><div class="line">  only:</div><div class="line">    - master@appDev/kuaikf</div><div class="line">  script:</div><div class="line">    # dist后面加/ 则不创建该文件</div><div class="line">    - rsync -avz --delete ./server/ root@1.1.1.2:/root/tmpStorage/</div><div class="line">    - ssh root@101.132.39.184 &apos;cd /root/tmpStorage/testKuaikf/server &amp;&amp; pm2 restart&apos;</div></pre></td></tr></table></figure>
+<h2 id="2-3-注意要点"><a href="#2-3-注意要点" class="headerlink" title="2-3 注意要点"></a>2-3 注意要点</h2><ol>
+<li>由于每个 stage 执行时会清空.gitignore 里的文件，所以需要用 cache。cache 用来缓存依赖，以 node_modules 为例，测试的 stage 需要依赖 node_modules，而 build 的时候也需要依赖</li>
+<li>artificate 用来存储 build 以后的文件，可以在 gitlab-ci 的设置里面进行下载<br><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-16/51501385.jpg" alt=""></li>
+<li>SSH_HOST_KEY 变量的存储需要在 gitlab 的 setting 里面进行设置<br><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-16/15075194.jpg" alt=""></li>
+<li>有一个脚本出现 faild，即停止，不会往下执行了。失败或成功都会发送邮件</li>
+<li>only: - master@appDev/kuaikf 表示该脚本只在 appDev/kuaikf 仓库下的master分支下执行。因为部署的任务只需要在主仓库，其他 fork 下来的开发仓库都只跑测试脚本</li>
+</ol>
+<h1 id="3、docker-测试环境"><a href="#3、docker-测试环境" class="headerlink" title="3、docker 测试环境"></a>3、docker 测试环境</h1><h2 id="3-1-dockerfile目录构成，-指令介绍"><a href="#3-1-dockerfile目录构成，-指令介绍" class="headerlink" title="3-1 dockerfile目录构成， 指令介绍"></a>3-1 dockerfile目录构成， 指令介绍</h2><h3 id="3-1-1-docker-file-的目录构成"><a href="#3-1-1-docker-file-的目录构成" class="headerlink" title="3-1-1 docker file 的目录构成"></a>3-1-1 docker file 的目录构成</h3><p><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-25/80147272.jpg" alt=""><br>chrome-linux: chrome内核的文件，用来做web自动化测试<br>source.list: 换ubuntu的安装仓库源</p>
+<h3 id="3-1-2-指令介绍"><a href="#3-1-2-指令介绍" class="headerlink" title="3-1-2 指令介绍"></a>3-1-2 指令介绍</h3><p>FROM: 拉取镜像<br>RUN: 执行脚本<br>ADD: 添加文件到构建环境中</p>
+<h2 id="3-2-dockerfile-文件书写"><a href="#3-2-dockerfile-文件书写" class="headerlink" title="3-2 dockerfile 文件书写"></a>3-2 dockerfile 文件书写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">FROM ubuntu:16.04</div><div class="line"># add custom china source</div><div class="line">ADD sources.list /etc/apt/</div><div class="line">RUN apt-get update &amp;&amp; apt-get install -y openssh-server</div><div class="line">RUN apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3</div><div class="line">libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \</div><div class="line">libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \</div><div class="line">libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \</div><div class="line">ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget redis-server rsync curl autoclean</div><div class="line"># add account</div><div class="line">RUN mkdir /var/run/sshd</div><div class="line">RUN echo &apos;root:123456&apos; | chpasswd</div><div class="line">RUN sed -i &apos;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&apos; /etc/ssh/sshd_config</div><div class="line"></div><div class="line"># SSH login fix. Otherwise user is kicked off after login</div><div class="line">RUN sed &apos;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&apos; -i /etc/pam.d/sshd</div><div class="line"></div><div class="line">ENV NOTVISIBLE &quot;in users profile&quot;</div><div class="line">RUN echo &quot;export VISIBLE=now&quot; &gt;&gt; /etc/profile</div><div class="line"></div><div class="line"># set node environment</div><div class="line">RUN rm /bin/sh &amp;&amp; ln -s /bin/bash /bin/sh</div><div class="line">ENV NVM_DIR /usr/local/nvm</div><div class="line">ENV NODE_VERSION 8.9.1</div><div class="line"></div><div class="line"># install nvm</div><div class="line"># https://github.com/creationix/nvm#install-script</div><div class="line">RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash</div><div class="line"></div><div class="line"># install node and npm and cnpm</div><div class="line">RUN source $NVM_DIR/nvm.sh \</div><div class="line">    &amp;&amp; NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/ nvm install $NODE_VERSION \</div><div class="line">    &amp;&amp; nvm alias default $NODE_VERSION \</div><div class="line">    &amp;&amp; nvm use default</div><div class="line">#add node and npm to path so the commands are available</div><div class="line">ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules</div><div class="line">ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH</div><div class="line"></div><div class="line">#npm change source</div><div class="line">RUN node -v &amp;&amp; npm -v</div><div class="line">RUN npm config set registry https://registry.npm.taobao.org</div><div class="line"></div><div class="line"># install common tool,insatll java</div><div class="line">RUN apt-get install -yq iputils-ping tmux vim redis-server rsync</div><div class="line"></div><div class="line">#install npm common tool</div><div class="line">RUN npm install vue-cli -g</div><div class="line">RUN npm install -g cnpm --registry=https://registry.npm.taobao.org</div><div class="line">RUN npm install -g forever</div><div class="line">RUN mkdir /tmp/chrome-linux</div><div class="line"># install python for node_modules</div><div class="line">RUN apt-get install -y python python-dev python-pip python-virtualenv</div><div class="line">COPY chrome-linux /tmp/chrome-linux</div><div class="line"></div><div class="line">EXPOSE 22 3000 3001 3002 3003 3004 3005 3006 3007 3008 3009 3010</div><div class="line">CMD [&quot;/usr/sbin/sshd&quot;, &quot;-D&quot;]</div></pre></td></tr></table></figure>
+<p>构建镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /ci</div><div class="line">sudo docker build -t ci/latest .</div></pre></td></tr></table></figure></p>
+<h2 id="3-3-注意事项"><a href="#3-3-注意事项" class="headerlink" title="3-3 注意事项"></a>3-3 注意事项</h2><p>1、docker 拉取镜像慢时，要换源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim /etc/docker/daemon.json</div><div class="line">     &#123;</div><div class="line">      &quot;registry-mirrors&quot;: [</div><div class="line">        &quot;registry-mirrors&quot;: [&quot;https://docker.mirrors.ustc.edu.cn&quot;]</div><div class="line">      ]</div><div class="line">    &#125;</div><div class="line">// restart docker server</div><div class="line">$ sudo systemctl daemon-reload</div><div class="line">$ sudo systemctl restart docker</div></pre></td></tr></table></figure></p>
+<p>2、拉取的 ubuntu 系统换中科大源, 在同级目录增加 source.list,并写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse</div><div class="line">deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</div><div class="line">deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</div><div class="line">deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</div><div class="line">deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</div><div class="line">deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse</div><div class="line">deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse</div><div class="line">deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse</div><div class="line">deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse</div><div class="line">deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse</div></pre></td></tr></table></figure></p>
+<p>3、nvm 下载 node 速度较慢，可以通过换源解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/ nvm install $NODE_VERSION</div></pre></td></tr></table></figure></p>
+<h1 id="4、前后端测试"><a href="#4、前后端测试" class="headerlink" title="4、前后端测试"></a>4、前后端测试</h1><h2 id="4-1-后端单元测试-接口测试"><a href="#4-1-后端单元测试-接口测试" class="headerlink" title="4-1 后端单元测试+接口测试"></a>4-1 后端单元测试+接口测试</h2><p>用 mocha + chai， 先对单元进行测试，测试通过，再跑接口测试，全都通过则结束</p>
+<h3 id="4-1-1-单元测试"><a href="#4-1-1-单元测试" class="headerlink" title="4-1-1 单元测试"></a>4-1-1 单元测试</h3><p>单元测试主要测试每个子函数的输出结果是否满足需求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var &#123; testAccount &#125; = require(&apos;./testAccount.js&apos;)</div><div class="line">var expect = require(&apos;chai&apos;).expect</div><div class="line">describe(&apos;测试查询账号函数&apos;, () =&gt; &#123;</div><div class="line">  it(&apos;查询id为1的账号，该数值应该返回1&apos;, async () =&gt; &#123;</div><div class="line">    expect(await testAccount(1)).to.be.equal(1)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="4-1-2-接口测试"><a href="#4-1-2-接口测试" class="headerlink" title="4-1-2 接口测试"></a>4-1-2 接口测试</h3><p>主要测试接口是否符合规范，是否满足各种边界条件的输出。这里采用了 supertest 框架来测试。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">const request = require(&apos;supertest&apos;)</div><div class="line">const app = require(&apos;../../app.js&apos;)</div><div class="line">const token = &apos;***********&apos;</div><div class="line"></div><div class="line">describe(&apos;测试登陆的post查询&apos;, () =&gt; &#123;</div><div class="line">  it(&apos;return code 0&apos;, (done) =&gt; &#123;</div><div class="line">    request(app)</div><div class="line">      .post(&apos;/api/login&apos;)</div><div class="line">      .send(&#123;</div><div class="line">        email: &apos;*****@qq.com&apos;,</div><div class="line">        password: &apos;***&apos;,</div><div class="line">        domain: &apos;**.kuaishangkf.com&apos;</div><div class="line">      &#125;)</div><div class="line">      .set(&apos;Accept&apos;, &apos;application/json&apos;)</div><div class="line">      .expect(res =&gt; &#123;</div><div class="line">        if (res.body.code !== 0) &#123;</div><div class="line">          throw new Error(`code error: $&#123;JSON.stringify(res.body)&#125;`)</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">      .end(done)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"> describe(&apos;测试发送重置密码的get查询&apos;, () =&gt; &#123;</div><div class="line">   it(&apos;return code 0&apos;, (done) =&gt; &#123;</div><div class="line">    request(app)</div><div class="line">      .get(&apos;/api/login/changePasswordEmail&apos;)</div><div class="line">      .query(&#123;email: &apos;463815567@qq.com&apos;&#125;)</div><div class="line">      .expect(res =&gt; &#123;</div><div class="line">        if (res.body.code !== 0) &#123;</div><div class="line">          throw new Error(`code error: $&#123;JSON.stringify(res.body)&#125;`)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">    .end(done)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line">describe(&apos;测试getKf的graphql的query接口&apos;, () =&gt; &#123;</div><div class="line">  let email = &apos;463815567@qq.com&apos;</div><div class="line">  let query = &#123;</div><div class="line">    query: `</div><div class="line">    &#123;</div><div class="line">      getPersonData(</div><div class="line">        token:&quot;$&#123;token&#125;&quot;</div><div class="line">        email:&quot;$&#123;email&#125;&quot;</div><div class="line">      ) &#123;</div><div class="line">        code</div><div class="line">        data &#123;</div><div class="line">          id</div><div class="line">          name</div><div class="line">          email</div><div class="line">          nick</div><div class="line">          role</div><div class="line">          reception_limit</div><div class="line">          role_id</div><div class="line">          is_main_account</div><div class="line">          activate_status</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    `</div><div class="line">  &#125;</div><div class="line">  it(&apos;return query code 0&apos;, (done) =&gt; &#123;</div><div class="line">    request(app)</div><div class="line">      .get(&apos;/graphql&apos;)</div><div class="line">      .set(&apos;Authorization&apos;, `Bearer $&#123;token&#125;`)</div><div class="line">      .query(query)</div><div class="line">      .expect(res =&gt; &#123;</div><div class="line">        if (res.body.data.getPersonData.code !== 0) &#123;</div><div class="line">          throw new Error(`code error: $&#123;JSON.stringify(res.body)&#125;`)</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">      .end(done)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong><em>注意事项</em></strong></p>
+<p>####1. 测试脚本启动监听端口，<br>test 的 file 里面 app 是 express 的服务器，直接引用的话会执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">const app = require(&apos;../../app.js&apos;)</div><div class="line">request(app)</div><div class="line">    .get()</div><div class="line">    .done()</div><div class="line">request(app)</div><div class="line">    .post()</div><div class="line">    .done()</div></pre></td></tr></table></figure></p>
+<p>在 app.js中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.listen(3001, function () &#123;</div><div class="line">  console.log(&apos;Example app listening on port 3001!&apos;)</div><div class="line">&#125;)</div><div class="line">module.exports = app</div></pre></td></tr></table></figure></p>
+<p>程序会开启监听3000端口，而每个测试都会起一个新的服务监听3000端口，而之前的3000端口不会自动关闭，所以会报端口占用的错误， 所以要在原有的 app.js 要增加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (!module.parent) &#123;</div><div class="line">  app.listen(3001, function () &#123;</div><div class="line">    console.log(&apos;Example app listening on port 3001!&apos;)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这段程序的作用是: 只有在执行执行 app.js 时才会开启监听3000端口，其他直接引用的都不会启动监听端口</p>
+<h2 id="4-2-前端自动化测试"><a href="#4-2-前端自动化测试" class="headerlink" title="4-2 前端自动化测试"></a>4-2 前端自动化测试</h2><ol>
+<li>利用 puppeteer，用 chrome 内核模拟登录的状态流程<br>测试登陆脚本<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">const puppeteer = require(&apos;puppeteer&apos;)</div><div class="line">let login = async () =&gt; &#123;</div><div class="line">  try &#123;</div><div class="line">    // 线上的地址和本地的地址不一样</div><div class="line">    const browser = await puppeteer.launch(</div><div class="line">      &#123;</div><div class="line">        executablePath: &apos;/tmp/chrome-linux/chrome&apos;,</div><div class="line">        args: [&apos;--no-sandbox&apos;, &apos;--disable-setuid-sandbox&apos;]</div><div class="line">      &#125;</div><div class="line">    )</div><div class="line">    const page = await browser.newPage()</div><div class="line">    await page.goto(&apos;http://127.0.0.1:3000/#/login&apos;)</div><div class="line">    await page.type(&apos;#login-domain input &apos;, &apos;***&apos;)</div><div class="line">    await page.type(&apos;#login-name input&apos;, &apos;463815567@qq.com&apos;)</div><div class="line">    await page.type(&apos;#login-password input&apos;, &apos;****&apos;)</div><div class="line">    await page.click(&apos;#login-button button&apos;)</div><div class="line">    await page.screenshot(&#123;path: &apos;example1.png&apos;&#125;)</div><div class="line">    await page.waitForSelector(&apos;#sidebar-user&apos;)</div><div class="line">    await browser.close()</div><div class="line">    return true</div><div class="line">  &#125; catch (e) &#123;</div><div class="line">    console.log(&apos;e&apos;, e)</div><div class="line">    return false</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">module.exports = login</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="5、-自动部署"><a href="#5、-自动部署" class="headerlink" title="5、 自动部署"></a>5、 自动部署</h1><h2 id="5-1-自动部署命令介绍"><a href="#5-1-自动部署命令介绍" class="headerlink" title="5-1 自动部署命令介绍"></a>5-1 自动部署命令介绍</h2><p>主要使用了 rsync 和 ssh<br>rsync 是 linux 下面的远程资料同步工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rsync -avz --delete ./server/ root@1.1.1.1:/root/tmpStorage/</div><div class="line">ssh root@101.132.39.184 &apos;cd /root/tmpStorage/testKuaikf/server &amp;&amp; pm2 restart&apos;</div></pre></td></tr></table></figure></p>
+<h2 id="5-2-SSH-配置"><a href="#5-2-SSH-配置" class="headerlink" title="5-2 SSH 配置"></a>5-2 SSH 配置</h2><p>1、正常的 ssh 流程，应该是本地生成公钥秘钥以后，将公钥放在服务器上，然后实现免密码登录。在runner里面由于是全新环境，每次都会清空 ./ssh，所以我们这里我们采用拿服务器的私钥进行登陆验证<br><img src="http://ozi0avz2v.bkt.clouddn.com/17-11-16/15075194.jpg" alt=""><br>2、将服务器的私钥存在 Gitlab-CI 的设置里面，命名为 SSH_PRIVATE_KEY]，在 runner 里面可以直接引用变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- &apos;which ssh-agent || ( apt-get update -y &amp;&amp; apt-get install openssh-client -y )&apos;</div><div class="line"># Run ssh-agent (inside the build environment)</div><div class="line">- eval $(ssh-agent -s)</div><div class="line"># Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store</div><div class="line">- ssh-add &lt;(echo &quot;$SSH_PRIVATE_KEY&quot;)</div><div class="line">- ssh-add &lt;(echo &quot;$SSH_PRODUCTION_KEY&quot;)</div><div class="line"># For Docker builds disable host key checking. Be aware that by adding that</div><div class="line"># you are suspectible to man-in-the-middle attacks.</div><div class="line"># WARNING: Use this only with the Docker executor, if you use it with shell</div><div class="line"># you will overwrite your user&apos;s SSH config.</div><div class="line">- mkdir -p ~/.ssh</div><div class="line">- echo -e &quot;Host *\n\tStrictHostKeyChecking no\n\n&quot; &gt; ~/.ssh/config</div></pre></td></tr></table></figure>
+<p>3、在服务器上需要把服务器本身的公钥复制到 .ssh/authorized_keys 里面</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">技术文章</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/30/ci/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/02/hello-world/">Hello World</a>
     </h1>
   
 
@@ -193,32 +325,6 @@
       
 
       
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/weixin.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
     </div>
     <div class="article-info article-info-index">
       
@@ -237,79 +343,16 @@
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/02/hello-world/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://weifenghuang.github.io/2017/11/02/hello-world/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/11/30/ci/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          手把手教你搭建 web 持续集成系统
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -329,14 +372,8 @@
 
 
 
-  
-  
-  
 
   
-
-  
-
   
 
 
@@ -359,8 +396,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
